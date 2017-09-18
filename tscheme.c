@@ -116,7 +116,7 @@ object *read_symbol_or_number(FILE *stream) {
 			fatal("token length error");
 		}
 	}
-	s[i] = 0;
+	s[i] = '\0';
 	printf("s=%s\n", s);
 	printf("string_number_p=%d\n", string_number_p(s));
 

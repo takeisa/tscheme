@@ -1,8 +1,6 @@
 tscheme
 ====
 
-Overview
-
 ## Description
 
 Tiny Scheme interprecter written in C.

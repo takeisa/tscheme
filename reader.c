@@ -48,7 +48,6 @@ static bool string_number_p(const char *s) {
 }
 
 static object *read_symbol_or_number(FILE *stream) {
-	printf("> read_symbol_or_number\n");
 	char s[MAX_TOKEN_LEN + 1];
 	int i = 0;
 	int c;
@@ -59,17 +58,14 @@ static object *read_symbol_or_number(FILE *stream) {
 		}
 	}
 	s[i] = '\0';
-	printf("s=%s\n", s);
-	printf("string_number_p=%d\n", string_number_p(s));
 
 	object *obj;
 	if (string_number_p(s)) {
 		obj = make_number(s);
 	} else {
-		INTERNAL_ERROR("not support symbol")
+		obj = make_symbol(s);
 	}
 
-	printf("< read_symbol_or_number\n");
 	return obj;
 }
 

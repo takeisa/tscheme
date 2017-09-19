@@ -1,7 +1,5 @@
 #include "tscheme.h"
 
-#define VERSION "0.1"
-
 void fatal(const char* message, ...) {
 	va_list args;
 	va_start(args, message);
@@ -32,9 +30,21 @@ object *make_number(const char *s) {
 	return obj;
 }
 
+object *make_symbol(const char *s) {
+	object *obj = alloc_object();
+	obj->type = SYMBOL;
+	obj->symbol.name = strdup(s);
+	return obj;
+}
+
 void print_integer(object *obj) {
 	assert(obj->type == INTEGER);
 	printf("%d", obj->integer.value);
+}
+
+void print_symbol(object *obj) {
+	assert(obj->type == SYMBOL);
+	printf("%s", obj->symbol.name);
 }
 
 void print(object *obj) {
@@ -43,8 +53,11 @@ void print(object *obj) {
 	case INTEGER:
 		print_integer(obj);
 		break;
+	case SYMBOL:
+		print_symbol(obj);
+		break;
 	default:
-		INTERNAL_ERROR("unsupport object type: type")
+		INTERNAL_ERROR("unsupport object type: type=%d", obj->type)
 	}
 }
 

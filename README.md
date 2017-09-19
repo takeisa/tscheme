@@ -6,7 +6,7 @@ tscheme
 Tiny Scheme interprecter written in C.
 
 ## Run
-'''
+```
 $ ./tscheme
 tscheme ver0.1
 > 1234
@@ -15,4 +15,4 @@ tscheme ver0.1
 abcd
 > "hello"
 "hello"
-'''
+```

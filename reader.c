@@ -58,7 +58,6 @@ static object *read_symbol_or_number(FILE *stream) {
 		}
 	}
 	s[i] = '\0';
-
 	object *obj;
 	if (string_number_p(s)) {
 		obj = make_number(s);
@@ -69,9 +68,39 @@ static object *read_symbol_or_number(FILE *stream) {
 	return obj;
 }
 
+object *read_string(FILE *stream) {
+	// TODO escape
+	char s[MAX_TOKEN_LEN + 1];
+	int i = 0;
+
+	while (true) {
+		int c = get_char(stream);
+		if (c == EOF) {
+			fatal("string terminate error");
+		}
+		if (c == '\"') {
+			break;
+		}
+		if (i >= MAX_TOKEN_LEN) {
+			fatal("too long string");
+		}
+		s[i++] = c;
+	}
+	s[i] = '\0';
+
+	return make_string(s);
+}
+
 object *read() {
 	FILE *stream = stdin;
 	skip_space(stream);
+
+	int c = get_char(stream);
+	if (c == '\"') {
+		return read_string(stream);
+	}
+
+	unget_char(c, stream);
 
 	return read_symbol_or_number(stream);
 }

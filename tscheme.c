@@ -37,6 +37,13 @@ object *make_symbol(const char *s) {
 	return obj;
 }
 
+object *make_string(const char *s) {
+	object *obj = alloc_object();
+	obj->type = STRING;
+	obj->string.value = strdup(s);
+	return obj;
+}
+
 void print_integer(object *obj) {
 	assert(obj->type == INTEGER);
 	printf("%d", obj->integer.value);
@@ -47,6 +54,11 @@ void print_symbol(object *obj) {
 	printf("%s", obj->symbol.name);
 }
 
+void print_string(object *obj) {
+	assert(obj->type == STRING);
+	printf("\"%s\"", obj->string.value);
+}
+
 void print(object *obj) {
 	assert(obj != NULL);
 	switch (obj->type) {
@@ -55,6 +67,9 @@ void print(object *obj) {
 		break;
 	case SYMBOL:
 		print_symbol(obj);
+		break;
+	case STRING:
+		print_string(obj);
 		break;
 	default:
 		INTERNAL_ERROR("unsupport object type: type=%d", obj->type)

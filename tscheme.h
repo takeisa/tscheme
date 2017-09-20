@@ -17,7 +17,8 @@
 
 typedef enum object_type {
 	INTEGER,
-	SYMBOL
+	SYMBOL,
+	STRING
 } object_type;
 
 typedef struct object {
@@ -29,6 +30,9 @@ typedef struct object {
 		struct symbol {
 			const char *name;
 		} symbol;
+		struct string {
+			const char *value;
+		} string;
 	};
 } object;
 
@@ -44,5 +48,6 @@ object *read();
 
 object *make_number(const char* s);
 object *make_symbol(const char* s);
+object *make_string(const char* s);
 
 #endif

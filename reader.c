@@ -91,6 +91,15 @@ object *read_string(FILE *stream) {
 	return make_string(s);
 }
 
+object *read_list(FILE *stream) {
+	skip_space(stream);
+	int c = get_char(stream);
+	if (c == ')') {
+		return NIL;
+	}
+	INTERNAL_ERROR("can't read list");
+}
+
 object *read() {
 	FILE *stream = stdin;
 	skip_space(stream);
@@ -98,6 +107,10 @@ object *read() {
 	int c = get_char(stream);
 	if (c == '\"') {
 		return read_string(stream);
+	} else if (c == '(') {
+		return read_list(stream);
+	} else if (c == ')') {
+		fatal("extra close parenthesis");
 	}
 
 	unget_char(c, stream);

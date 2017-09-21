@@ -1,5 +1,5 @@
 PROGRAM=tscheme
-OBJECTS=tscheme.o reader.o
+OBJECTS=tscheme.o reader.o memory.o object.o
 CFLAGS=-g -Wall -O0
 LDLIBS=
 CC=c99
